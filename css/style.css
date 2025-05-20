@@ -1,0 +1,144 @@
+/* General Styles */
+body {
+    padding-bottom: 60px; /* Account for fixed footer */
+}
+
+/* Hero Banner */
+.hero-banner {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                url('/images/cinema-bg.jpg') center/cover no-repeat;
+    color: white;
+    padding: 100px 0;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.hero-banner h1 {
+    font-size: 3.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+/* Search Bar */
+.search-container {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: white;
+    padding: 1rem 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.search-results {
+    position: absolute;
+    width: 100%;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: none;
+}
+
+.search-results.active {
+    display: block;
+}
+
+.search-item {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}
+
+.search-item:hover {
+    background: #f8f9fa;
+}
+
+/* Movie Grid */
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.movie-card {
+    transition: transform 0.2s;
+    height: 100%;
+}
+
+.movie-card:hover {
+    transform: translateY(-5px);
+}
+
+.movie-card img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+}
+
+/* Movie Detail */
+.movie-detail {
+    margin: 2rem 0;
+}
+
+.movie-detail img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* Recommendations Carousel */
+.recommendations {
+    margin: 3rem 0;
+}
+
+.carousel-item {
+    padding: 1rem;
+}
+
+/* About Page */
+.about-section {
+    background: #dc3545;
+    color: white;
+    padding: 3rem 0;
+    margin: 2rem 0;
+}
+
+.about-section h2 {
+    color: #000;
+    margin-bottom: 1.5rem;
+}
+
+/* Contact Form */
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Loading Placeholder */
+.loading-placeholder {
+    background: #f0f0f0;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 0.8; }
+    100% { opacity: 0.6; }
+}
+
+/* Pagination */
+.pagination {
+    justify-content: center;
+    margin: 2rem 0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .hero-banner h1 {
+        font-size: 2.5rem;
+    }
+    
+    .movie-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+} 
