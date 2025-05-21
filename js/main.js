@@ -126,22 +126,10 @@ $(document).ready(function() {
             // Show loading state
             $('.carousel-inner').html(`
                 <div class="carousel-item active">
-                    <div class="row position-relative">
-                        <div class="col-4">
-                            <button class="carousel-control-prev position-absolute" style="left: -30px; top: 50%; transform: translateY(-50%);" type="button" data-bs-target="#recommendationsCarousel" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                        </div>
+                    <div class="row">
                         <div class="col-4"><div class="loading-placeholder" style="height: 300px;"></div></div>
                         <div class="col-4"><div class="loading-placeholder" style="height: 300px;"></div></div>
                         <div class="col-4"><div class="loading-placeholder" style="height: 300px;"></div></div>
-                        <div class="col-4">
-                            <button class="carousel-control-next position-absolute" style="right: -30px; top: 50%; transform: translateY(-50%);" type="button" data-bs-target="#recommendationsCarousel" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-                        </div>
                     </div>
                 </div>
             `);
@@ -151,13 +139,7 @@ $(document).ready(function() {
                 .done(function(data) {
                     $('.carousel-inner').html(`
                         <div class="carousel-item active">
-                            <div class="row position-relative">
-                                <div class="col-4">
-                                    <button class="carousel-control-prev position-absolute" style="left: -30px; top: 50%; transform: translateY(-50%);" type="button" data-bs-target="#recommendationsCarousel" data-bs-slide="prev">
-                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                        <span class="visually-hidden">Previous</span>
-                                    </button>
-                                </div>
+                            <div class="row">
                                 ${data.map(movie => `
                                     <div class="col-4">
                                         <div class="card movie-card" onclick="window.location.href='/movie_web/cur_v1/movie_detail.php?id=${movie.id}'" style="cursor: pointer;">
@@ -169,12 +151,6 @@ $(document).ready(function() {
                                         </div>
                                     </div>
                                 `).join('')}
-                                <div class="col-4">
-                                    <button class="carousel-control-next position-absolute" style="right: -30px; top: 50%; transform: translateY(-50%);" type="button" data-bs-target="#recommendationsCarousel" data-bs-slide="next">
-                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                        <span class="visually-hidden">Next</span>
-                                    </button>
-                                </div>
                             </div>
                         </div>
                     `);
