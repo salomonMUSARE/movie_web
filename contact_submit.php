@@ -2,7 +2,7 @@
 require_once 'config.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: /contact.php');
+    header('Location: /movie_web/cur_v1/contact.php');
     exit;
 }
 
@@ -54,7 +54,7 @@ try {
     mail($to, $subject, $emailMessage, $headers);
 
     // Redirect to success page
-    header('Location: /contact.php?success=1');
+    header('Location: /movie_web/cur_v1/contact.php?success=1');
     exit;
 } catch (PDOException $e) {
     // Log error and show generic message

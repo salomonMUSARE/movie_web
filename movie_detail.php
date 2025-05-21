@@ -2,7 +2,7 @@
 require_once 'includes/header.php';
 
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-    header('Location: /index.php');
+    header('Location: /movie_web/cur_v1/index.php');
     exit;
 }
 
@@ -11,7 +11,7 @@ $stmt->execute([$_GET['id']]);
 $movie = $stmt->fetch();
 
 if (!$movie) {
-    header('Location: /index.php');
+    header('Location: /movie_web/cur_v1/index.php');
     exit;
 }
 ?>

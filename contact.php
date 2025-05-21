@@ -18,7 +18,7 @@ $success = isset($_GET['success']) && $_GET['success'] == 1;
 
             <div class="card">
                 <div class="card-body">
-                    <form action="/contact_submit.php" method="POST" class="contact-form">
+                    <form action="/movie_web/cur_v1/contact_submit.php" method="POST" class="contact-form">
                         <div class="mb-3">
                             <label for="name" class="form-label">Name</label>
                             <input type="text" class="form-control" id="name" name="name" required>

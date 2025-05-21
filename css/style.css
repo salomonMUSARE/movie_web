@@ -6,7 +6,7 @@ body {
 /* Hero Banner */
 .hero-banner {
     background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-                url('/images/cinema-bg.jpg') center/cover no-repeat;
+                url('/movie_web/cur_v1/images/cinema-bg.jpg') center/cover no-repeat;
     color: white;
     padding: 100px 0;
     text-align: center;

@@ -14,7 +14,7 @@ $(document).ready(function() {
         }
 
         searchTimeout = setTimeout(() => {
-            $.get('/search_api.php', { query: query })
+            $.get('/movie_web/cur_v1/search_api.php', { query: query })
                 .done(function(data) {
                     const results = $('.search-results');
                     results.empty();
@@ -38,7 +38,7 @@ $(document).ready(function() {
     // Handle search result clicks
     $(document).on('click', '.search-item', function() {
         const movieId = $(this).data('id');
-        window.location.href = `/movie_detail.php?id=${movieId}`;
+        window.location.href = `/movie_web/cur_v1/movie_detail.php?id=${movieId}`;
     });
 
     // Close search results when clicking outside
@@ -53,7 +53,7 @@ $(document).ready(function() {
         if (isLoading) return;
         isLoading = true;
 
-        $.get('/movies_api.php', { page: page })
+        $.get('/movie_web/cur_v1/movies_api.php', { page: page })
             .done(function(data) {
                 const movies = data.movies;
                 const totalPages = data.total_pages;
@@ -69,7 +69,7 @@ $(document).ready(function() {
                             <div class="card-body">
                                 <h5 class="card-title">${movie.title}</h5>
                                 <p class="card-text">${movie.release_year}</p>
-                                <a href="/movie_detail.php?id=${movie.id}" class="btn btn-primary">View Details</a>
+                                <a href="/movie_web/cur_v1/movie_detail.php?id=${movie.id}" class="btn btn-primary">View Details</a>
                             </div>
                         </div>
                     `);
@@ -134,7 +134,7 @@ $(document).ready(function() {
                 </div>
             `);
 
-            $.get('/recs_api.php', { id: movieId, offset: offset })
+            $.get('/movie_web/cur_v1/recs_api.php', { id: movieId, offset: offset })
                 .done(function(data) {
                     const items = data.map((movie, index) => `
                         <div class="col-4">
@@ -143,7 +143,7 @@ $(document).ready(function() {
                                 <div class="card-body">
                                     <h5 class="card-title">${movie.title}</h5>
                                     <p class="card-text">${movie.release_year}</p>
-                                    <a href="/movie_detail.php?id=${movie.id}" class="btn btn-primary">View Details</a>
+                                    <a href="/movie_web/cur_v1/movie_detail.php?id=${movie.id}" class="btn btn-primary">View Details</a>
                                 </div>
                             </div>
                         </div>
