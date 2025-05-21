@@ -64,12 +64,11 @@ $(document).ready(function() {
 
                 movies.forEach(movie => {
                     $('.movie-grid').append(`
-                        <div class="card movie-card">
+                        <div class="card movie-card" onclick="window.location.href='/movie_web/cur_v1/movie_detail.php?id=${movie.id}'" style="cursor: pointer;">
                             <img src="${movie.poster_url}" class="card-img-top" alt="${movie.title}">
                             <div class="card-body">
                                 <h5 class="card-title">${movie.title}</h5>
                                 <p class="card-text">${movie.release_year}</p>
-                                <a href="/movie_web/cur_v1/movie_detail.php?id=${movie.id}" class="btn btn-primary">View Details</a>
                             </div>
                         </div>
                     `);
@@ -138,12 +137,11 @@ $(document).ready(function() {
                 .done(function(data) {
                     const items = data.map((movie, index) => `
                         <div class="col-4">
-                            <div class="card">
+                            <div class="card movie-card" onclick="window.location.href='/movie_web/cur_v1/movie_detail.php?id=${movie.id}'" style="cursor: pointer;">
                                 <img src="${movie.poster_url}" class="card-img-top" alt="${movie.title}">
                                 <div class="card-body">
                                     <h5 class="card-title">${movie.title}</h5>
                                     <p class="card-text">${movie.release_year}</p>
-                                    <a href="/movie_web/cur_v1/movie_detail.php?id=${movie.id}" class="btn btn-primary">View Details</a>
                                 </div>
                             </div>
                         </div>
@@ -151,19 +149,31 @@ $(document).ready(function() {
 
                     $('.carousel-inner').html(`
                         <div class="carousel-item active">
-                            <div class="row">${items}</div>
+                            <div class="row position-relative">
+                                <button class="carousel-control-prev position-absolute" style="left: -50px; top: 50%; transform: translateY(-50%);" type="button" data-bs-target="#recommendationsCarousel" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                ${items}
+                                <button class="carousel-control-next position-absolute" style="right: -50px; top: 50%; transform: translateY(-50%);" type="button" data-bs-target="#recommendationsCarousel" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
                         </div>
                     `);
                 });
         }
 
         // Handle carousel navigation
-        $('.carousel-control-prev').click(function() {
+        $('.carousel-control-prev').click(function(e) {
+            e.preventDefault();
             currentOffset = Math.max(0, currentOffset - 3);
             loadRecommendations(currentOffset);
         });
 
-        $('.carousel-control-next').click(function() {
+        $('.carousel-control-next').click(function(e) {
+            e.preventDefault();
             currentOffset += 3;
             loadRecommendations(currentOffset);
         });

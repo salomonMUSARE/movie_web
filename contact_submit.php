@@ -40,18 +40,35 @@ try {
     $stmt = $pdo->prepare('INSERT INTO messages (name, email, phone, message) VALUES (?, ?, ?, ?)');
     $stmt->execute([$name, $email, $phone, $message]);
 
-    // Send email
-    $to = 'salomonmusare44@gmail.com';
-    $subject = 'New Contact Form Submission - MovieVerse';
-    $emailMessage = "Name: $name\n";
-    $emailMessage .= "Email: $email\n";
-    $emailMessage .= "Phone: $phone\n\n";
-    $emailMessage .= "Message:\n$message";
-    $headers = "From: $email\r\n";
-    $headers .= "Reply-To: $email\r\n";
-    $headers .= "X-Mailer: PHP/" . phpversion();
+    // Prepare email content
+    $emailContent = "Name: $name\n";
+    $emailContent .= "Email: $email\n";
+    $emailContent .= "Phone: $phone\n\n";
+    $emailContent .= "Message:\n$message";
 
-    mail($to, $subject, $emailMessage, $headers);
+    // Send to admin
+    $toAdmin = 'salomonmusare44@gmail.com';
+    $subjectAdmin = 'New Contact Form Submission - MovieVerse';
+    $headersAdmin = "From: $email\r\n";
+    $headersAdmin .= "Reply-To: $email\r\n";
+    $headersAdmin .= "X-Mailer: PHP/" . phpversion();
+
+    mail($toAdmin, $subjectAdmin, $emailContent, $headersAdmin);
+
+    // Send copy to user
+    $toUser = $email;
+    $subjectUser = 'Your Message to MovieVerse - Confirmation';
+    $headersUser = "From: MovieVerse <noreply@movieverse.com>\r\n";
+    $headersUser .= "Reply-To: salomonmusare44@gmail.com\r\n";
+    $headersUser .= "X-Mailer: PHP/" . phpversion();
+
+    $userEmailContent = "Dear $name,\n\n";
+    $userEmailContent .= "Thank you for contacting MovieVerse. Here's a copy of your message:\n\n";
+    $userEmailContent .= $emailContent;
+    $userEmailContent .= "\n\nWe'll get back to you soon!\n\n";
+    $userEmailContent .= "Best regards,\nMovieVerse Team";
+
+    mail($toUser, $subjectUser, $userEmailContent, $headersUser);
 
     // Redirect to success page
     header('Location: /movie_web/cur_v1/contact.php?success=1');
