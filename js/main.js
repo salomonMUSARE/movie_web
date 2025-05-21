@@ -123,42 +123,58 @@ $(document).ready(function() {
         const movieId = new URLSearchParams(window.location.search).get('id');
 
         function loadRecommendations(offset) {
+            // Show loading state
             $('.carousel-inner').html(`
                 <div class="carousel-item active">
-                    <div class="row">
+                    <div class="row position-relative">
+                        <div class="col-4">
+                            <button class="carousel-control-prev position-absolute" style="left: -30px; top: 50%; transform: translateY(-50%);" type="button" data-bs-target="#recommendationsCarousel" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                        </div>
                         <div class="col-4"><div class="loading-placeholder" style="height: 300px;"></div></div>
                         <div class="col-4"><div class="loading-placeholder" style="height: 300px;"></div></div>
                         <div class="col-4"><div class="loading-placeholder" style="height: 300px;"></div></div>
+                        <div class="col-4">
+                            <button class="carousel-control-next position-absolute" style="right: -30px; top: 50%; transform: translateY(-50%);" type="button" data-bs-target="#recommendationsCarousel" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             `);
 
+            // Load recommendations
             $.get('/movie_web/cur_v1/recs_api.php', { id: movieId, offset: offset })
                 .done(function(data) {
-                    const items = data.map((movie, index) => `
-                        <div class="col-4">
-                            <div class="card movie-card" onclick="window.location.href='/movie_web/cur_v1/movie_detail.php?id=${movie.id}'" style="cursor: pointer;">
-                                <img src="${movie.poster_url}" class="card-img-top" alt="${movie.title}">
-                                <div class="card-body">
-                                    <h5 class="card-title">${movie.title}</h5>
-                                    <p class="card-text">${movie.release_year}</p>
-                                </div>
-                            </div>
-                        </div>
-                    `).join('');
-
                     $('.carousel-inner').html(`
                         <div class="carousel-item active">
                             <div class="row position-relative">
-                                <button class="carousel-control-prev position-absolute" style="left: -50px; top: 50%; transform: translateY(-50%);" type="button" data-bs-target="#recommendationsCarousel" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
-                                </button>
-                                ${items}
-                                <button class="carousel-control-next position-absolute" style="right: -50px; top: 50%; transform: translateY(-50%);" type="button" data-bs-target="#recommendationsCarousel" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
-                                </button>
+                                <div class="col-4">
+                                    <button class="carousel-control-prev position-absolute" style="left: -30px; top: 50%; transform: translateY(-50%);" type="button" data-bs-target="#recommendationsCarousel" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+                                </div>
+                                ${data.map(movie => `
+                                    <div class="col-4">
+                                        <div class="card movie-card" onclick="window.location.href='/movie_web/cur_v1/movie_detail.php?id=${movie.id}'" style="cursor: pointer;">
+                                            <img src="${movie.poster_url}" class="card-img-top" alt="${movie.title}">
+                                            <div class="card-body">
+                                                <h5 class="card-title">${movie.title}</h5>
+                                                <p class="card-text">${movie.release_year}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                                <div class="col-4">
+                                    <button class="carousel-control-next position-absolute" style="right: -30px; top: 50%; transform: translateY(-50%);" type="button" data-bs-target="#recommendationsCarousel" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     `);
@@ -166,13 +182,13 @@ $(document).ready(function() {
         }
 
         // Handle carousel navigation
-        $('.carousel-control-prev').click(function(e) {
+        $(document).on('click', '.carousel-control-prev', function(e) {
             e.preventDefault();
             currentOffset = Math.max(0, currentOffset - 3);
             loadRecommendations(currentOffset);
         });
 
-        $('.carousel-control-next').click(function(e) {
+        $(document).on('click', '.carousel-control-next', function(e) {
             e.preventDefault();
             currentOffset += 3;
             loadRecommendations(currentOffset);

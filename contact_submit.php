@@ -40,32 +40,38 @@ try {
     $stmt = $pdo->prepare('INSERT INTO messages (name, email, phone, message) VALUES (?, ?, ?, ?)');
     $stmt->execute([$name, $email, $phone, $message]);
 
-    // Prepare email content
-    $emailContent = "Name: $name\n";
-    $emailContent .= "Email: $email\n";
-    $emailContent .= "Phone: $phone\n\n";
-    $emailContent .= "Message:\n$message";
+    // Prepare detailed email content for admin
+    $adminEmailContent = "New Contact Form Submission Received!\n\n";
+    $adminEmailContent .= "Client Details:\n";
+    $adminEmailContent .= "----------------\n";
+    $adminEmailContent .= "Name: $name\n";
+    $adminEmailContent .= "Email: $email\n";
+    $adminEmailContent .= "Phone: $phone\n\n";
+    $adminEmailContent .= "Message:\n";
+    $adminEmailContent .= "----------------\n";
+    $adminEmailContent .= $message;
+    $adminEmailContent .= "\n\n";
+    $adminEmailContent .= "Submitted at: " . date('Y-m-d H:i:s') . "\n";
+    $adminEmailContent .= "----------------\n";
 
-    // Send to admin
+    // Send detailed copy to admin
     $toAdmin = 'salomonmusare44@gmail.com';
     $subjectAdmin = 'New Contact Form Submission - MovieVerse';
-    $headersAdmin = "From: $email\r\n";
+    $headersAdmin = "From: MovieVerse Contact Form <noreply@movieverse.com>\r\n";
     $headersAdmin .= "Reply-To: $email\r\n";
     $headersAdmin .= "X-Mailer: PHP/" . phpversion();
 
-    mail($toAdmin, $subjectAdmin, $emailContent, $headersAdmin);
+    mail($toAdmin, $subjectAdmin, $adminEmailContent, $headersAdmin);
 
-    // Send copy to user
+    // Send simple confirmation to user
     $toUser = $email;
-    $subjectUser = 'Your Message to MovieVerse - Confirmation';
+    $subjectUser = 'Thank You for Contacting MovieVerse';
     $headersUser = "From: MovieVerse <noreply@movieverse.com>\r\n";
     $headersUser .= "Reply-To: salomonmusare44@gmail.com\r\n";
     $headersUser .= "X-Mailer: PHP/" . phpversion();
 
     $userEmailContent = "Dear $name,\n\n";
-    $userEmailContent .= "Thank you for contacting MovieVerse. Here's a copy of your message:\n\n";
-    $userEmailContent .= $emailContent;
-    $userEmailContent .= "\n\nWe'll get back to you soon!\n\n";
+    $userEmailContent .= "Thank you for contacting MovieVerse. We have received your message and will get back to you soon.\n\n";
     $userEmailContent .= "Best regards,\nMovieVerse Team";
 
     mail($toUser, $subjectUser, $userEmailContent, $headersUser);

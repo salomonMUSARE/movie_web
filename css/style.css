@@ -102,11 +102,7 @@ body {
 /* Recommendations Carousel */
 .recommendations {
     margin: 3rem 0;
-    padding: 0 50px; /* Make room for the controls */
-}
-
-.carousel-item {
-    padding: 1rem;
+    position: relative;
 }
 
 .carousel-control-prev,
@@ -116,6 +112,15 @@ body {
     background: rgba(0, 0, 0, 0.5);
     border-radius: 50%;
     opacity: 0.8;
+    z-index: 10;
+}
+
+.carousel-control-prev {
+    left: -20px !important;
+}
+
+.carousel-control-next {
+    right: -20px !important;
 }
 
 .carousel-control-prev:hover,
@@ -128,6 +133,14 @@ body {
 .carousel-control-next-icon {
     width: 20px;
     height: 20px;
+}
+
+.carousel-item .row {
+    margin: 0 -15px;
+}
+
+.carousel-item .col-4 {
+    padding: 0 15px;
 }
 
 /* About Page */
